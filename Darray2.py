@@ -26,18 +26,20 @@ class Darray:
             20) able to push an element to the first element
             21) able to sort all the elements in the Darray
             22) able to reinitiate the Darray and set the given element(s) to the Darray
-            22) able to iterate the Darray
+            23) able to iterate the Darray
         Next Feature:
             1) subset
             2) divide
             3) multiplication with the Darray (matrix multiplication)
+            4) bytearray
+            5) assign by generator
     """
 
     def __init__(self,*args):
         """Create an empty array."""
         self._length = 0                                            # store numbers of elements
         self._cap = 1                                               # store array capacity
-        self._array = self._make_array(self._cap)                   # create low-level array
+        self._array = self._build(self._cap)                        # create low-level array
         for i in args:                                              # append all element to low level array
             self.append(i)
 
@@ -110,7 +112,7 @@ class Darray:
                     self[j], self[j+1] = self[j+1], self[j]
                 self._length -= 1
             while (self._length < self._cap // 4):                  # shrink capacity if necessary
-                self._resize(self._cap // 2)
+                self._scale(self._cap // 2)
         else:                                               
             raise TypeError("Unsupported type.")                    # if the type is not what it is intended to
             
@@ -195,11 +197,8 @@ class Darray:
     def __iter__(self):
         """return a generator of the Darray"""
         if (self._cap != self._length):
-            self._resize(self.length)
+            self._scale(self.length)
         yield from self._array
-        
-    def __bytes__(self):
-        return b'123456789'
     
     def copy(self):
         """Copy the Darray and return its identical."""                                       
@@ -214,19 +213,19 @@ class Darray:
     def append(self, obj):
         """Add object to end of the array."""
         if (self._length == self._cap):                             # not enough room
-            self._resize(2 * self._cap)                             # so double capacity
+            self._scale(2 * self._cap)                              # so double capacity
         self._array[self._length] = obj
         self._length += 1
 
-    def _resize(self, c):                                           # nonpublic utitity
+    def _scale(self, c):                                            # nonpublic utitity
         """Resize internal array to capacity c."""
-        B = self._make_array(c)                                     # new (bigger) array
+        B = self._build(c)                                          # new (bigger) array
         for k in range(self._length):                               # for each existing value
             B[k] = self._array[k]
         self._array = B                                             # use the bigger array
         self._cap = c
 
-    def _make_array(self, c):                                       # nonpublic utitity
+    def _build(self, c):                                            # nonpublic utitity
         """Return new array with capacity c."""   
         return (c * ct.py_object)()                                 # see ctypes documentation
 
@@ -236,7 +235,7 @@ class Darray:
             raise IndexError("Index out of range.")
         k = k % self.length
         if self.length == self._cap:                                # not enough room
-            self._resize(2 * self._cap)                             # so double capacity
+            self._scale(2 * self._cap)                             # so double capacity
         for j in range(self._length, k, -1):                        # shift rightmost first
             self[j] = self[j-1]
         self[k] = value                                             # store newest element
@@ -251,7 +250,7 @@ class Darray:
                 self[self._length - 1] = None                       # help garbage collection
                 self._length -= 1                                   # we have one less item
                 if self._length == self._cap // 4:                  # shrink capacity if necessary
-                    self._resize(self._cap // 2)
+                    self._scale(self._cap // 2)
                 return                                              # exit immediately
             if (not ignore_value_error):
                 raise ValueError('Value not found.')                # only reached if no match
@@ -296,18 +295,20 @@ class Darray:
             self[i] = self[i + 1]
         self._length -= 1
         if self._length == self._cap // 4:                          # shrink capacity if necessary
-            self._resize(self._cap // 2)
+            self._scale(self._cap // 2)
         return value
     
     def push(self, obj):
+        """insert an obj to the first element"""
         if self.length == self._cap:                                # not enough room
-            self._resize(2 * self._cap)                             # so double capacity
+            self._scale(2 * self._cap)                              # so double capacity
         for j in range(self._length, -1, -1):                       # shift rightmost first
             self[j] = self[j-1]
         self[0] = obj                                               # store newest element
         self._length += 1
     
     def delete(self, index):
+        """delete the element from the Darray"""
         if index is None:
             index = self._length - 1
         if not -self.length <= index < self.length:
@@ -317,7 +318,7 @@ class Darray:
             self[i] = self[i + 1]
         self._length -= 1
         if self._length == self._cap // 4:                          # shrink capacity if necessary
-            self._resize(self._cap // 2)
+            self._scale(self._cap // 2)
 
     def redef(self, *args):
         """Reinitiate constructor and assign totally new elements."""
