@@ -1,7 +1,7 @@
 
 <h1 align="center"> # :computer: custom-made-dynamic-array :computer: </h1>
 <p align="center">
-  <img alt="Version" src="https://img.shields.io/badge/version-2-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1-blue.svg?cacheSeconds=2592000" />
   <a href="#" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
@@ -23,21 +23,10 @@
 > 11) able to add an element to the last index
 > 12) able to insert an element by a given index
 > 13) able to remove an element
-> 14) able to delete an element by a given index
-> 15) able to extend the Darray by a given Darray
-> 16) able to count an element in the Darray
-> 17) able to find the index of an element
-> 18) able to reset the Darray
-> 19) able to pop an element out of the Darray
-> 20) able to push an element to the first element
-> 21) able to sort all the elements in the Darray
-> 22) able to reinitiate the Darray and set the given element(s) to the Darray
-> 23) able to iterate the Darray
-
-#### Upcoming features :waxing_gibbous_moon: :
-> 1) subset with floor division operator
-> 2) split with division 
-> 3) multiplication with the Darray (matrix multiplication)
-> 4) bytearray
-> 5) assign by generator
-
+> 14) able to extend the Darray by a given Darray
+> 15) able to count an element in the Darray
+> 16) able to find the index of an element
+> 17) able to reset the Darray
+> 18) able to pop an element out of the Darray
+> 19) able to sort all the elements in the Darray
+> 20) able to reinitiate the Darray and set the given element(s) to the Darray
