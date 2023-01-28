@@ -1,5 +1,5 @@
 
-<h1 align="center"> # :computer: custom-made-dynamic-array :computer: </h1>
+<h1 align="center">  :computer: custom-made-dynamic-array :computer: </h1>
 <p align="center">
   <img alt="Version" src="https://img.shields.io/badge/version-2-blue.svg?cacheSeconds=2592000" />
   <a href="#" target="_blank">
